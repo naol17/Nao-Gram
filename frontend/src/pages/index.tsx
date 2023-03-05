@@ -1,6 +1,6 @@
 import nextAuth from 'next-auth'
 import Head from 'next/head'
-import {signIn,useSession}from "next-auth/react"
+import {signIn,signOut,useSession}from "next-auth/react"
 export default function Home() {
   const {data}= useSession();
   console.log('dataaa', data)
@@ -8,8 +8,16 @@ export default function Home() {
     <>
      
       <div className='bg-slate-500'>     
-      
-      <button onClick={()=>signIn("google")}>sign in</button>
+      {
+        data?.user?(<button onClick={()=> signOut()}>sign out</button>
+        ): 
+(                <button onClick={()=>signIn("google")}>sign in</button>
+
+)      
+      }
+      {
+       data?.user?.name
+      }
        </div>
     </>
   )
